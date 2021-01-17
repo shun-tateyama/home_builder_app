@@ -1,13 +1,13 @@
 version: 2.1
 jobs:
-  rspec_and_rubocop:
+  run-tests:
     working_directory: ~/app
     executor:
       name: tests/default
       tag: 2.7.2
       test_db_name: app_name_test
     steps:
-      - ruby-tests/setup-and-run-tests:
+      - tests/setup-and-run-test:
         bundler-version: 2.2.4
 
   heroku_deploy:
@@ -24,14 +24,14 @@ jobs:
 # orbs:jobsのパッケージ
 orbs:
   heroku: circleci/heroku@1.2.4
-  ruby-tests: zfhui/ruby-tests@0.0.2
+  tests: zfhui/ruby-tests@0.0.2
 
 # workflows:jobsの実行順番
 workflows:
   version: 2.1
   build:
     jobs:
-      - rspec_and_rubocop
+      - run-tests
       - heroku_deploy:
           requires:
-            - rspec_and_rubocop
+            - run-tests
