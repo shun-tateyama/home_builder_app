@@ -1,8 +1,27 @@
 version: 2.1
 jobs:
-  build:
+  rspec:
     docker:
-      - image: circleci/node:4.8.2
+      - image: circleci/ruby:2.7.2
     steps:
       - checkout
       - run: echo "hello world"
+
+  rubocop:
+    docker:
+      - image: circleci/ruby:2.7.2
+    steps:
+      - checkout
+
+orbs:
+  heroku_deploy: circleci/heroku@0.0.10
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - rspec
+      - rubocop
+      - heroku_deploy/deploy-via-git:
+          requires:
+            - rspec
+            - rubocop
