@@ -7,7 +7,7 @@ jobs:
       tag: 2.7.2
       test_db_name: app_name_test
     steps:
-      - tests/setup-and-run-test:
+      - tests/setup-and-run-tests:
         bundler-version: 2.2.4
 
   heroku_deploy:
