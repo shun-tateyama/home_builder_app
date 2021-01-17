@@ -1,7 +1,6 @@
 version: 2.1
 jobs:
   rubocop:
-    executor: rubocop/default
     steps:
       - checkout
       - rubocop/lint
