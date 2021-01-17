@@ -8,7 +8,7 @@ jobs:
       test_db_name: app_name_test
     steps:
       - tests/setup-and-run-tests:
-        bundle-version: 2.2.4
+        bundler-version: 2.1.4
 
   heroku_deploy:
     executor: heroku/default
