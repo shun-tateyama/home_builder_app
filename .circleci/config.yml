@@ -26,7 +26,7 @@ orbs:
   heroku: circleci/heroku@1.2.4
   ruby-tests: zfhui/ruby-tests@0.0.2
 
-# workflows:jobsの実行順番の操作
+# workflows:jobsの実行順番
 workflows:
   version: 2.1
   build:
