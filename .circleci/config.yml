@@ -13,15 +13,29 @@ jobs:
     steps:
       - checkout
 
+  heroku_deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          command: >
+            echo "The command above installs Heroku, the command below deploys.
+            What you do inbetween is up to you!"
+      - heroku/deploy-via-git
+
+# orbs:jobsのパッケージ
 orbs:
-  heroku_deploy: circleci/heroku@0.0.10
+  heroku: circleci/heroku@1.2.4
+
+# workflows:jobsの実行順番の操作
 workflows:
   version: 2.1
   build:
     jobs:
       - rspec
       - rubocop
-      - heroku_deploy/deploy-via-git:
+      - heroku_deploy:
           requires:
             - rspec
             - rubocop
