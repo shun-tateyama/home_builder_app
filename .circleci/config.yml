@@ -1,9 +1,23 @@
 version: 2.1
 jobs:
-  rubocop2:
+  rspec:
+    docker:
+      - image: cimg/ruby:2.7.2
     steps:
       - checkout
-      - rubocop/lint
+      - run: echo "hello world"
+      - run:
+          name: run rspec
+          command: docker-compose exec web rspec
+
+  rubocop:
+    docker:
+      - image: cimg/ruby:2.7.2
+    steps:
+      - checkout
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop --parallel
 
   heroku_deploy:
     executor: heroku/default
@@ -19,14 +33,15 @@ jobs:
 # orbs:jobsのパッケージ
 orbs:
   heroku: circleci/heroku@1.2.4
-  rubocop: boxt/rubocop@0.3.0
 
-# workflows:jobsの実行順番
+# workflows:jobsの実行順番の操作
 workflows:
   version: 2.1
   build:
     jobs:
-      - rubocop2
+      - rspec
+      - rubocop
       - heroku_deploy:
           requires:
-            - rubocop2
+            - rspec
+            - rubocop
