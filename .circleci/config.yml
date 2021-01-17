@@ -1,17 +1,14 @@
 version: 2.1
 jobs:
-  rspec:
-    docker:
-      - image: circleci/ruby:2.7.2
+  rspec_and_rubocop:
+    working_directory: ~/app
+    executor:
+      name: tests/default
+      tag: 2.7.2
+      test_db_name: app_name_test
     steps:
-      - checkout
-      - run: echo "hello world"
-
-  rubocop:
-    docker:
-      - image: circleci/ruby:2.7.2
-    steps:
-      - checkout
+      - tests/setup-and-run-test:
+        bundler-version: 2.2.4
 
   heroku_deploy:
     executor: heroku/default
@@ -27,15 +24,14 @@ jobs:
 # orbs:jobsのパッケージ
 orbs:
   heroku: circleci/heroku@1.2.4
+  ruby-tests: zfhui/ruby-tests@0.0.2
 
 # workflows:jobsの実行順番の操作
 workflows:
   version: 2.1
   build:
     jobs:
-      - rspec
-      - rubocop
+      - rspec_and_rubocop
       - heroku_deploy:
           requires:
-            - rspec
-            - rubocop
+            - rspec_and_rubocop
