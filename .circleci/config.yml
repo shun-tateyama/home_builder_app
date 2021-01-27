@@ -3,6 +3,8 @@ jobs:
   rspec:
     docker:
       - image: cimg/ruby:2.7.2
+      - image: circleci/mysql:5.7
+    working_directory: ~/home_builder_app
     steps:
       - checkout
       - setup_remote_docker
@@ -15,7 +17,6 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker exec home_builder_app_web_1 curl -4 --retry 10 --retry-delay 5 --retry-connrefused http://localhost:3000
       - run:
           name: Setup database
           command: |
@@ -27,6 +28,7 @@ jobs:
   rubocop:
     docker:
       - image: cimg/ruby:2.7.2
+    working_directory: ~/home_builder_app
     steps:
       - checkout
       - restore_cache:
@@ -48,6 +50,7 @@ jobs:
 
   heroku_deploy:
     executor: heroku/default
+    working_directory: ~/home_builder_app
     steps:
       - checkout
       - heroku/install
