@@ -4,16 +4,9 @@ jobs:
     docker:
       - image: cimg/ruby:2.7.2
         environment:
-          BUNDLER_VERSION: 2.2.4
-
-  test:
-    parallelism: 3
-    docker:
-      - image: cimg/ruby:2.7.2
-        environment:
-          DB_HOST: db
           RAILS_ENV: test
           BUNDLER_VERSION: 2.2.4
+
       - image: circleci/mysql:5.7
         command: --default-authentication-plugin=mysql_native_password
         environment:
@@ -92,9 +85,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
       - heroku_deploy:
           requires:
-            - test
+            - build
