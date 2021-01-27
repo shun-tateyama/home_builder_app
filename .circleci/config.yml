@@ -1,52 +1,74 @@
 version: 2.1
 jobs:
-  rspec:
+  build:
     docker:
       - image: cimg/ruby:2.7.2
+        environment:
+          BUNDLER_VERSION: 2.2.4
+
+  test:
+    parallelism: 3
+    docker:
+      - image: cimg/ruby:2.7.2
+        environment:
+          DB_HOST: db
+          RAILS_ENV: test
+          BUNDLER_VERSION: 2.2.4
       - image: circleci/mysql:5.7
-    working_directory: ~/home_builder_app
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-            name: Run rspec
-            command: |
-              mkdir /tmp/test-results
-              TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-                circleci tests split --split-by=timings)"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          MYSQL_ROOT_HOST: '%'
 
-              bundle exec rspec \
-                --format progress \
-                --format RspecJunitFormatter \
-                --out /tmp/test-results/rspec.xml \
-                --format progress \
-                $TEST_FILES
-      - run:
-          name: Run rspec
-          command: docker-compose exec web rspec
-
-  rubocop:
-    docker:
-      - image: cimg/ruby:2.7.2
     working_directory: ~/home_builder_app
+
     steps:
       - checkout
       - restore_cache:
           keys:
-            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gemfiles-{{ .Branch }}-
-            - gemfiles-master-
-      - run: bundle config --local path vendor/bundle
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
       - run:
-          name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
-      - run:
-          name: Run rubocop
-          command: bundle exec rubocop --parallel
+          name: install dependencies
+          command: |
+            gem install bundler -v 2.2.4
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
-          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run: mv config/database.yml.ci config/database.yml
+
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      - run:
+          name: run rubocop
+          command: bundle exec rubocop
+
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
+
+            sudo gem install bundler
+            sudo gem install rspec
+            sudo gem install rspec-core
+            bundle exec rspec \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $TEST_FILES
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
 
   heroku_deploy:
     executor: heroku/default
@@ -67,11 +89,12 @@ orbs:
 # workflows:jobsの実行順番の操作
 workflows:
   version: 2.1
-  build:
+  build_and_test:
     jobs:
-      - rspec
-      - rubocop
+      - build
+      - test:
+          requires:
+            - build
       - heroku_deploy:
           requires:
-            - rspec
-            - rubocop
+            - test
