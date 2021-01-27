@@ -15,7 +15,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker exec home_builder_app_web curl -4 --retry 10 --retry-delay 5 --retry-connrefused http://localhost:3000
+            docker exec home_builder_app_web_1 curl -4 --retry 10 --retry-delay 5 --retry-connrefused http://localhost:3000
       - run:
           name: Setup database
           command: |
