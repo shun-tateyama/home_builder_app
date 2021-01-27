@@ -10,7 +10,6 @@ services:
 
   web:
     build: .
-    container_name: home_builder_app
     command: rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/app_name
