@@ -6,4 +6,4 @@ test: &default
   password: password
   host: db
   port: 3306
-  database: app_name_test
+  database: ci_test
