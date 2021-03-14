@@ -44,9 +44,6 @@ jobs:
           name: run tests
           command: |
             mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-              circleci tests split --split-by=timings)"
-
             sudo gem install bundler
             sudo gem install rspec
             sudo gem install rspec-core
