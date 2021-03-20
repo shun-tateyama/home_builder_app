@@ -61,3 +61,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'parser', '2.7.2.0'
 gem 'ast', '2.4.1'
+gem 'devise', git: "https://github.com/heartcombo/devise"
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
