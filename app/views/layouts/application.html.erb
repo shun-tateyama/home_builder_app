@@ -11,20 +11,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]-->
+    <%= render 'layouts/shim' %>
   </head>
   <body>
-    <header>
-      <%= link_to user_google_oauth2_omniauth_authorize_path do %>
-        <p>'Google ログイン'</p>
-      <% end %>
-   </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
+    <%= render 'layouts/header' %>
     <%= yield %>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
