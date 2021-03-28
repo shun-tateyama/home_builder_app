@@ -1,29 +1,127 @@
+// 背景色
+$main_color: rgba(137, 145, 150,0.8);
+// 文字色
+$text_color: white;
+// 透明度
+$transparent: 0.8;
+// 角の丸み
+$border-radius: 10px;
+// 下線
+$non-underbar: none;
+// フォントサイズ大
+$font-size_big: 48px;
+// フォントサイズ中
+$font-size_medium: 32px;
+// フォントサイズ小
+$font-size_small: 16px;
+
+
 // _header.html.erb
 .navbar{
-  opacity: 0.9;
+  opacity: $transparent;
 }
 
 // index.html.erb
-// .toppage {
-//   background-image: url('toppage.jpg');
-//   opacity: 0.8;
-// }
 .container{
-  width:100%;
-  height:800px;
-  opacity: 0.8;
+  width: 100%;
+  height: 800px;
+  opacity: $transparent;
   background-image: url('toppage.jpg');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  max-width:100%;
+  padding: 0;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .title{
+    background: $main_color;
+    font-size: $font-size_big;
+    color: $text_color;
+    border-radius: $border-radius;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-decoration: $non-underbar;
+  }
+  .guest{
+    background: $main_color;
+    font-size: $font-size_small;
+    color: $text_color;
+    border-radius: $border-radius;
+    text-decoration: $non-underbar;
+  }
 }
-
-.moji{
-  // background: gray;
-  text-align: center;
-  margin: 0 300px ;
-  padding: 400px 0;
-  color: white;
-  max-height: 100%
+.wrapper{
+  width: 100%;
+  height: 300px;
+  padding: 50px 0;
+  // background: $main_color;
+  display: flex;
+  justify-content: space-evenly;
+  .info1{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    background-image: url('trader.JPG');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: $border-radius;
+    text-decoration: $non-underbar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .trader{
+      color: $text_color;
+      font-size: $font-size_medium;
+      text-decoration: $non-underbar;
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .info2{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    background-image: url('user.JPG');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: $border-radius;
+    text-decoration: $non-underbar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .user{
+      color: $text_color;
+      font-size: $font-size_medium;
+      text-decoration: $non-underbar;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+.info1::after{
+  content: '';
+  background-color: rgba(64, 64, 64,0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: $border-radius;
+}
+.info2::after{
+  content: '';
+  background-color: rgba(64, 64, 64,0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: $border-radius;
 }
