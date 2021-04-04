@@ -4,8 +4,6 @@ $main_color: rgba(137, 145, 150,0.8);
 $text_color: white;
 // 透明度
 $transparent: 0.8;
-// 角の丸み
-$border-radius: 10px;
 // 下線
 $non-underbar: none;
 // フォントサイズ大
@@ -15,97 +13,151 @@ $font-size_medium: 32px;
 // フォントサイズ小
 $font-size_small: 16px;
 
-
-// _header.html.erb
-.navbar{
-  opacity: $transparent;
+// widthとheightのサイズ
+@mixin size($width, $height){
+  width: $width;
+  height: $height;
 }
-
-// index.html.erb
-.container{
-  width: 100%;
-  height: 800px;
-  opacity: $transparent;
-  background-image: url('toppage.jpg');
-  background-position: center top;
+// flexboxのパターン
+@mixin flexbox($justify:center, $align:center){
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+// 背景画像設定
+@mixin bg_image($bg_image, $bg_position:center center){
+  background-image: $bg_image;
+  background-position: $bg_position;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 0;
+}
+
+@import 'css/parts/header.scss';
+@import 'css/parts/index.scss';
+@import 'css/parts/trader.scss';
+@import 'css/parts/user.scss';
+
+// _trader.scss
+.section1{
+  @include size(100%, 400px);
+  opacity: $transparent;
+  @include bg_image(url('trader.JPG'));
+  padding: 100px 200px;
+  margin-bottom: 100px;
   max-width: 100%;
-  display: flex;
-  justify-content: center;
+  @include flexbox($justify:space-between);
+  position: relative;
+  .info3{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 50px;
+    .wrapper2{
+      max-width: 100%;
+      @include flexbox($justify:left);
+      .trader_icon{
+        @include size(64px, 64px);
+        margin-bottom:20px;
+        z-index: 1;
+      }
+      h1{
+        color: $text_color;
+      }
+    }
+    p{
+      color: $text_color;
+    }
+  }
+}
+.container2::after{
+  content: '';
+  background-color: rgba(64, 64, 64,0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: $border-radius;
+}
+.section2{
+  @include flexbox($justify:space-evenly);
+  margin-bottom: 100px;
+  .box{
+    text-align: center;
+    align-items: center;
+    .label{
+      @include size(100px, 36px);
+      color: $text_color;
+      margin: 18px auto -18px auto;
+      background: black;
+      border-radius: 18px;
+      line-height: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .content{
+      @include size(300px, 400px);
+      background: $main_color;
+      border-radius: 50px;
+      padding: 36px 20px 0 20px;
+    }
+  }
+}
+.section3{
   align-items: center;
-  flex-direction: column;
-  .title{
-    background: $main_color;
-    font-size: $font-size_big;
-    color: $text_color;
-    border-radius: $border-radius;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-decoration: $non-underbar;
+  text-align: center;
+  margin:0 150px 0;
+  h1{
+    margin-bottom: 100px;
   }
-  .guest{
-    background: $main_color;
-    font-size: $font-size_small;
-    color: $text_color;
-    border-radius: $border-radius;
-    text-decoration: $non-underbar;
-  }
-}
-.wrapper{
-  width: 100%;
-  height: 300px;
-  padding: 50px 0;
-  // background: $main_color;
-  display: flex;
-  justify-content: space-evenly;
-  .info1{
-    width: 400px;
-    height: 200px;
+  .a{
+    border-top: 1px solid #ddd;
     text-align: center;
-    background-image: url('trader.JPG');
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: $border-radius;
-    text-decoration: $non-underbar;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    .trader{
+    margin-bottom: 100px;
+    .label{
+      @include size(100px, 36px);
       color: $text_color;
-      font-size: $font-size_medium;
-      text-decoration: $non-underbar;
-      position: relative;
-      z-index: 1;
-    }
-  }
-  .info2{
-    width: 400px;
-    height: 200px;
-    text-align: center;
-    background-image: url('user.JPG');
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: $border-radius;
-    text-decoration: $non-underbar;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    .user{
-      color: $text_color;
-      font-size: $font-size_medium;
-      text-decoration: $non-underbar;
-      position: relative;
-      z-index: 1;
+      margin: -18px auto 36px ;
+      background: black;
+      border-radius: 18px;
+      line-height: 36px;
     }
   }
 }
-.info1::after{
+
+// _user.scss
+.section4{
+  @include size(100%, 400px);
+  opacity: $transparent;
+  @include bg_image(url('user.JPG'));
+  padding: 100px 200px;
+  margin-bottom: 100px;
+  max-width: 100%;
+  @include flexbox($justify:space-between);
+  position: relative;
+  .info3{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 50px;
+    .wrapper2{
+      max-width: 100%;
+      @include flexbox($justify:left);
+      .user_icon{
+        @include size(64px, 64px);
+        margin-bottom:20px;
+        z-index: 1;
+      }
+      h1{
+        color: $text_color;
+      }
+    }
+    p{
+      color: $text_color;
+    }
+  }
+}
+.container2::after{
   content: '';
   background-color: rgba(64, 64, 64,0.8);
   position: absolute;
@@ -115,13 +167,48 @@ $font-size_small: 16px;
   bottom: 0;
   border-radius: $border-radius;
 }
-.info2::after{
-  content: '';
-  background-color: rgba(64, 64, 64,0.8);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-radius: $border-radius;
+.section5{
+  @include flexbox($justify:space-evenly);
+  margin-bottom: 100px;
+  .box{
+    text-align: center;
+    align-items: center;
+    .label{
+      @include size(100px, 36px);
+      color: $text_color;
+      margin: 18px auto -18px auto;
+      background: black;
+      border-radius: 18px;
+      line-height: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .content{
+      @include size(300px, 400px);
+      background: $main_color;
+      border-radius: 50px;
+      padding: 36px 20px 0 20px;
+    }
+  }
+}
+.section6{
+  align-items: center;
+  text-align: center;
+  margin:0 150px 0;
+  h1{
+    margin-bottom: 100px;
+  }
+  .a{
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin-bottom: 100px;
+    .label{
+      @include size(100px, 36px);
+      color: $text_color;
+      margin: -18px auto 36px ;
+      background: black;
+      border-radius: 18px;
+      line-height: 36px;
+    }
+  }
 }

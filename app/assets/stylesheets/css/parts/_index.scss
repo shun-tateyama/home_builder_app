@@ -1,0 +1,95 @@
+.container{
+  width: 100%;
+  height: 800px;
+  opacity: $transparent;
+  @include bg_image(url('toppage.jpg'),center top);
+  padding: 0;
+  max-width: 100%;
+  @include flexbox()
+  flex-direction: column;
+  .title{
+    background: $main_color;
+    font-size: $font-size_big;
+    color: $text_color;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-decoration: $non-underbar;
+  }
+  .guest{
+    background: $main_color;
+    font-size: $font-size_small;
+    color: $text_color;
+    border-radius: 5px;
+    text-decoration: $non-underbar;
+    padding: 5px;
+  }
+}
+.description{
+  margin: 50px 0;
+  text-align: center;
+  h1{
+    font-size: $font-size_medium;
+    margin-bottom: 50px;
+  }
+}
+.wrapper{
+  width: 100%;
+  height: 300px;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-evenly;
+  .link{
+    text-decoration: none;
+  }
+  .info1{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    @include bg_image(url('trader.JPG'));
+    border-radius: $border-radius;
+    @include flexbox()
+    position: relative;
+    .trader{
+      color: $text_color;
+      font-size: $font-size_medium;
+      position: relative;
+      z-index: 1;
+    }
+  }
+  .info2{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    @include bg_image(url('user.JPG'));
+    border-radius: $border-radius;
+    @include flexbox()
+    position: relative;
+    .user{
+      color: $text_color;
+      font-size: $font-size_medium;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+.info1::after{
+  content: '';
+  background-color: rgba(64, 64, 64,0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: $border-radius;
+}
+.info2::after{
+  content: '';
+  background-color: rgba(64, 64, 64,0.8);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: $border-radius;
+}

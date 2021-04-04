@@ -2,11 +2,25 @@
     <%= link_to 'GAPTIME', '#',class:'title' %>
     <%= link_to 'ゲストログイン', '#',class:'guest' %>
 </div>
+<div class= 'description'>
+  <h1>GAPTIMEは隙間時間をなくせます</h1>
+  <p>業者は仕事の合間を<br>ハウスメーカーは業者待ちを</p>
+</div>
 <div class= 'wrapper'>
-  <div class= 'info1'>
-    <%= link_to '業者', pages_trader_path, class:'trader' %>
-  </div>
-  <div class= 'info2'>
-    <%= link_to 'ハウスメーカー', pages_user_path, class:'user' %>
-  </div>
+  <%= link_to pages_trader_path, class: 'link' do %>
+    <div class= 'info1'>
+      <h1 class= 'trader'>業者</h1>
+    </div>
+  <% end %>
+  <%= link_to pages_user_path, class: 'link' do %>
+    <div class= 'info2'>
+      <h1 class= 'user'>ハウスメーカー</h1>
+    </div>
+  <% end %>
+</div>
+<div class= 'description'>
+  <h1>GAPTIMEの使い方</h1>
+  <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 </div>
