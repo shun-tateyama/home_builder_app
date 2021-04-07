@@ -37,6 +37,15 @@ $font-size_small: 16px;
 @import 'css/parts/trader.scss';
 @import 'css/parts/user.scss';
 
+// _header.scss
+.navbar{
+  opacity: $transparent;
+  h4{
+    color: white;
+    font-size: $font-size_small;
+  }
+}
+
 // _trader.scss
 .section1{
   @include size(100%, 400px);
@@ -210,5 +219,33 @@ $font-size_small: 16px;
       border-radius: 18px;
       line-height: 36px;
     }
+  }
+}
+
+// new.html.erb sessions
+.login{
+  @include size(100%, 800px);
+  @include bg_image(url('toppage.jpg'));
+  padding: 200px;
+  .box{
+    @include size(300px, 400px);
+    margin: auto;
+    padding: 50px;
+    background: $main_color;
+    text-align: center;
+  }
+}
+
+// new.html.erb registrations
+.signup{
+  @include size(100%, 800px);
+  @include bg_image(url('toppage.jpg'));
+  padding: 200px;
+  .box{
+    @include size(300px, 400px);
+    margin: auto;
+    padding: 50px;
+    background: $main_color;
+    text-align: center;
   }
 }

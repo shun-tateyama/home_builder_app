@@ -1,2 +1,3 @@
 class Devise < ApplicationRecord
+
 end
