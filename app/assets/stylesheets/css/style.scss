@@ -238,14 +238,17 @@ $font-size_small: 16px;
 
 // new.html.erb registrations
 .signup{
-  @include size(100%, 800px);
+  @include size(100%, 1000px);
   @include bg_image(url('toppage.jpg'));
   padding: 200px;
   .box{
-    @include size(300px, 400px);
+    @include size(800px, 600px);
     margin: auto;
     padding: 50px;
     background: $main_color;
     text-align: center;
+    .field{
+      margin-bottom: 20px;
+    }
   }
 }

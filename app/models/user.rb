@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable
 
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :group, presence: true
+
   def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first
 
