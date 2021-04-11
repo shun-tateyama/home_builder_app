@@ -2,7 +2,7 @@
   <div class= 'box'>
     <h2>新規登録</h2>
 <%# グループに応じた条件分岐がうまくいかない %>
-    <%= form_with model: @user, local: true, url: trader_index_path do |f| %>
+    <%= form_with model: @user, local: true do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
