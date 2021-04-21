@@ -40,6 +40,7 @@ $font-size_small: 16px;
 // _header.scss
 .navbar{
   opacity: $transparent;
+  height: 40px;
   h4{
     color: white;
     font-size: $font-size_small;
@@ -251,4 +252,12 @@ $font-size_small: 16px;
       margin-bottom: 20px;
     }
   }
+}
+
+// show.html.erb trader
+.col-sm-3{
+  background:red;
+}
+.col-sm-9{
+  background:blue;
 }
